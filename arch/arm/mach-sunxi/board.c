@@ -224,12 +224,15 @@ static int suniv_get_boot_source(void)
 	/* translate SUNIV BootROM stack to standard SUNXI boot sources */
 	switch (brom_call) {
 	case SUNIV_BOOTED_FROM_MMC0:
+	case SUN8I_BOOTED_FROM_MMC0:
 		return SUNXI_BOOTED_FROM_MMC0;
 	case SUNIV_BOOTED_FROM_SPI:
+	case SUN8I_BOOTED_FROM_SPI:
 		return SUNXI_BOOTED_FROM_SPI;
 	case SUNIV_BOOTED_FROM_MMC1:
 		return SUNXI_BOOTED_FROM_MMC2;
 	case SUNIV_BOOTED_FROM_NAND:
+	case SUN8I_BOOTED_FROM_NAND:
 		return SUNXI_BOOTED_FROM_SPI_NAND;
 	}
 	/* If we get here something went wrong try to boot from FEL.*/
@@ -259,11 +262,11 @@ static int sunxi_get_boot_source(void)
 	 * so we can't use that either. So if this is called from U-Boot
 	 * proper, just return MMC0 as a placeholder, for now.
 	 */
-	if (IS_ENABLED(CONFIG_MACH_SUNIV) &&
+	if ((IS_ENABLED(CONFIG_MACH_SUNIV) || IS_ENABLED(CONFIG_MACH_SUN8I)) &&
 	    !IS_ENABLED(CONFIG_XPL_BUILD))
 		return SUNXI_BOOTED_FROM_MMC0;
 
-	if (IS_ENABLED(CONFIG_MACH_SUNIV))
+	if (IS_ENABLED(CONFIG_MACH_SUNIV) || IS_ENABLED(CONFIG_MACH_SUN8I))
 		return suniv_get_boot_source();
 	if (sunxi_egon_valid(egon_head))
 		return readb(&egon_head->boot_media);

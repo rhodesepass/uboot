@@ -29,6 +29,10 @@
 #define SUNIV_BOOTED_FROM_SPI	0xffff4130
 #define SUNIV_BOOTED_FROM_MMC1	0xffff4150
 
+#define SUN8I_BOOTED_FROM_MMC0	0xffff2e58
+#define SUN8I_BOOTED_FROM_NAND	0xffff2ec8
+#define SUN8I_BOOTED_FROM_SPI	0xffff2eac
+
 uint32_t sunxi_get_boot_device(void);
 uint32_t sunxi_get_spl_size(void);
 

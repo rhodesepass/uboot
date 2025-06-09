@@ -461,15 +461,25 @@ static inline int spi_nand_init(struct sunxi_spi *spi)
     printf("Detected JEDEC ID : 0x%08x\n", id);
 
     if (id == 0x00efaa21) {
-        spi->nand_dev.name = "w25n01g";
+        spi->nand_dev.name = "W25N01G";
         spi->nand_dev.page_size  = (1 << 11);    /* 2048 */
         spi->nand_dev.page_count = (65536);
         spi->nand_dev.block_size = (1 << 17);   /* 128KB */
     
     }  else if (id == 0x00efaa22) {
-        spi->nand_dev.name = "w25n02kv";
+        spi->nand_dev.name = "W25N02KV";
         spi->nand_dev.page_size  = (1 << 11);    /* 2048 */
         spi->nand_dev.page_count = (131072);
+        spi->nand_dev.block_size = (1 << 17);   /* 128KB */
+    }  else if (id == 0x00c212c2) {
+        spi->nand_dev.name = "MX35LF1GE";
+        spi->nand_dev.page_size  = (1 << 11);    /* 2048 */
+        spi->nand_dev.page_count = (65536);
+        spi->nand_dev.block_size = (1 << 17);   /* 128KB */
+    }  else if (id == 0x00c8b148 && id == 0x00c8a148) {
+        spi->nand_dev.name = "GD5F1GQ4RCxxG";
+        spi->nand_dev.page_size  = (1 << 11);    /* 2048 */
+        spi->nand_dev.page_count = (65536);
         spi->nand_dev.block_size = (1 << 17);   /* 128KB */
     }
     else {
@@ -571,7 +581,7 @@ static int spi0_nand_read_data(struct sunxi_spi *spi, void *buf, u32 addr, u32 l
 static int spl_spi_nand_load_image(struct spl_image_info *spl_image,
                               struct spl_boot_device *bootdev)
 {
-    int ret = 0;int i;
+    int ret = 0;
     struct legacy_img_hdr *header;
     uint32_t load_offset = sunxi_get_spl_size();
 

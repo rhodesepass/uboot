@@ -829,7 +829,6 @@ config VIDEO_SUNXI
 	depends on !MACH_SUN8I_A83T
 	depends on !MACH_SUNXI_H3_H5
 	depends on !MACH_SUN8I_R40
-	depends on !MACH_SUN8I_V3S
 	depends on !MACH_SUN9I
 	depends on !MACH_SUN50I
 	depends on !SUN50I_GEN_H6
@@ -1060,7 +1059,7 @@ config SPL_SPI_SUNXI
 
 config SPL_SPI_NAND_SUNXI
 	bool "Support for SPI NAND Flash on Allwinner SoCs in SPL"
-	depends on MACH_SUN4I || MACH_SUN5I || MACH_SUN7I || MACH_SUNXI_H3_H5 || MACH_SUN50I || MACH_SUN8I_R40 || SUN50I_GEN_H6 || MACH_SUNIV
+	depends on MACH_SUN4I || MACH_SUN5I || MACH_SUN7I || MACH_SUNXI_H3_H5 || MACH_SUN50I || MACH_SUN8I_R40 || MACH_SUN8I_V3S || SUN50I_GEN_H6 || MACH_SUNIV || SUNXI_GEN_NCAT2
 	help
 	  Enable support for SPI NAND Flash. This option allows SPL to read from
 	  sunxi SPI NAND Flash. if unsure, say N.
