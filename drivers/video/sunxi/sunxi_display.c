@@ -49,8 +49,8 @@
 DECLARE_GLOBAL_DATA_PTR;
 
 /* Maximum LCD size we support */
-#define LCD_MAX_WIDTH		1920
-#define LCD_MAX_HEIGHT		1080
+#define LCD_MAX_WIDTH		1280
+#define LCD_MAX_HEIGHT		800
 #define LCD_MAX_LOG2_BPP	VIDEO_BPP32
 
 enum sunxi_monitor {
