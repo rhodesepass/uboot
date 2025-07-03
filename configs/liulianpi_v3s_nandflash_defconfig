@@ -10,8 +10,8 @@ CONFIG_SPL_SPI_NAND_SUNXI=y
 CONFIG_ARMV7_LPAE=y
 CONFIG_BOOTDELAY=1
 CONFIG_USE_BOOTARGS=y
-CONFIG_BOOTARGS="console=ttyS0,115200 panic=5 rootwait mtdparts=spi0.0:1M(u-boot)ro,128K(dtb)ro,5120K(kernel)ro,-(rootfs) root=ubi0:rootfs earlyprintk rw rootfstype=ubifs ubi.mtd=3"
-CONFIG_BOOTCOMMAND="mtd read spi-nand0 0x41800000 0x100000 0x4000; mtd read spi-nand0 0x41000000 0x120000 0x500000; bootz 0x41000000 - 0x41800000"
+CONFIG_BOOTARGS="console=ttyS0,115200 panic=5 rootwait mtdparts=spi0.0:1M(u-boot)ro,128K(dtb)ro,5504K(kernel)ro,-(rootfs) root=ubi0:rootfs earlyprintk rw rootfstype=ubifs ubi.mtd=3"
+CONFIG_BOOTCOMMAND="mtd read spi-nand0 0x41800000 0x100000 0x4000; mtd read spi-nand0 0x41000000 0x120000 0x560000; bootz 0x41000000 - 0x41800000"
 CONFIG_SYS_SPI_U_BOOT_OFFS=0x20000
 CONFIG_CMD_MTD=y
 CONFIG_CMD_MTD_OTP=y
