@@ -1148,6 +1148,42 @@ static void setup_st7701(void){
 
 }
 
+
+static int sunxi_gpio_get_value_bank(void *bank_base, int pin)
+{
+	return !!(readl(bank_base + GPIO_DAT_REG_OFFSET) & (1U << pin));
+}
+
+static int sunxi_gpio_get_value(uint32_t pin)
+{
+	uint32_t bank = GPIO_BANK(pin);
+	void *pio = BANK_TO_GPIO(bank);
+
+	return sunxi_gpio_get_value_bank(pio, GPIO_NUM(pin));
+}
+
+
+#define SCREEN_CFG_PIN		SUNXI_GPE(11)
+#define TCON0_CTRL_REG      0x01c0c040
+
+static void swap_rgb_by_config_pin(){
+	uint32_t mask = 1U << 23;
+
+	sunxi_gpio_set_cfgpin(SCREEN_CFG_PIN, SUNXI_GPIO_INPUT);
+	mdelay(10);
+
+
+	if(sunxi_gpio_get_value(SCREEN_CFG_PIN)){
+		printf("srgn: CFG: laowang 3yuan TFT\n");
+		// setbits_le32(TCON0_CTRL_REG,mask);
+	}
+	else{
+		printf("srgn: CFG: generic ST7701 IPS\n");
+		// clrbits_le32(TCON0_CTRL_REG,mask);
+	}
+
+}
+
 int board_late_init(void)
 {
 #ifdef CONFIG_USB_ETHER
@@ -1156,6 +1192,7 @@ int board_late_init(void)
 
 #ifdef CONFIG_MACH_SUNIV
 	setup_st7701();
+	swap_rgb_by_config_pin();
 #endif
 
 	return 0;
